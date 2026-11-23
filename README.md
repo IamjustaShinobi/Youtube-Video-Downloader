@@ -14,7 +14,7 @@
 
 <br>
 
-<img src="assets/screenshot.png" alt="YT Downloader screenshot" width="560">
+<img src="screenshot.png" alt="YT Downloader screenshot" width="560">
 
 </div>
 
